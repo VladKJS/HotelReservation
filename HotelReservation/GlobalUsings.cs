@@ -1,0 +1,15 @@
+﻿global using HotelReservation.Data;
+global using HotelReservation.Helpers;
+global using HotelReservation.Models;
+global using HotelReservation.Services;
+global using Microsoft.AspNetCore.Mvc;
+global using My.Api.NuGet.Exceptions;
+global using My.Api.NuGet.Helpers;
+global using My.Api.NuGet.Middleware;
+global using My.Api.NuGet.ServiceCollections;
+global using Serilog;
+global using Serilog.Events;
+global using System.Collections.Concurrent;
+global using System.Reflection;
+global using System.Text.Json.Serialization;
+global using Swashbuckle.AspNetCore.Annotations;
