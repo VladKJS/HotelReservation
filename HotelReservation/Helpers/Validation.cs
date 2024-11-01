@@ -1,4 +1,6 @@
-﻿namespace HotelReservation.Helpers;
+﻿using System.Text.RegularExpressions;
+
+namespace HotelReservation.Helpers;
 
 public static class Validation
 {
@@ -26,10 +28,8 @@ public static class Validation
         }
 
         var room = booking.Substring(hyphenIndex + 1);
-        if (!int.TryParse(room, out var roomNumber))
-        {
-            throw new BadRequestException(400, "Room number must be a valid integer.");
-        }
+
+        var roomNumber = GetRoomNumber(room);
 
         BookingDetails reservation = new(hotel, roomNumber);
 
@@ -43,5 +43,18 @@ public static class Validation
     {
         var hot = str.Trim();
         return char.ToUpper(hot[0]) + hot.Substring(1);
+    }
+    private static int GetRoomNumber(string room)
+    {
+        if (Regex.IsMatch(room, @"^\s*room\s*\d+(\s*\d+)*\s*$", RegexOptions.IgnoreCase))
+        {      
+            string numbers = string.Concat(Regex.Matches(room, @"\d+").Select(m => m.Value));
+            if (!int.TryParse(numbers, out var roomNumber))
+            {
+                throw new BadRequestException(400, "Room number must be a valid integer.");
+            }
+            return roomNumber;
+        }
+        throw new BadRequestException(400, "Room number must be in a valid format ex.'Room1'.");
     }
 }
