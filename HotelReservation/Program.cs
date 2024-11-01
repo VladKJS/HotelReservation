@@ -18,7 +18,6 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 });
 builder.Services.AddSwaggerGen(options =>options.EnableAnnotations());
 builder.Services.AddGlobalErrorHandling();
-builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IReservationData, ReservationData>();
 
 var app = builder.Build();
@@ -29,11 +28,11 @@ app.UseMiddleware<SerilogMiddleware>();
 app.UseGlobalErrorHandling();
 app.UseSwaggerDocumentation(assemblyName);
 
-app.MapPost("/reservation",([FromBody]Booking booking, IBookingService bookingService) =>
+app.MapPost("/reservation",([FromBody]Booking booking, IReservationData reservation) =>
 {
     var newBooking = booking.Reservation.Validator();
 
-    var result = bookingService.MakeReservation(new BookingDetails(newBooking.Hotel, newBooking.RoomNumber));
+    var result = reservation.MakeReservation(new BookingDetails(newBooking.Hotel, newBooking.RoomNumber));
  
     return result;
 })

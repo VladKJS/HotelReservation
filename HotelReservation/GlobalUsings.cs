@@ -1,7 +1,6 @@
 ﻿global using HotelReservation.Data;
 global using HotelReservation.Helpers;
 global using HotelReservation.Models;
-global using HotelReservation.Services;
 global using Microsoft.AspNetCore.Mvc;
 global using My.Api.NuGet.Exceptions;
 global using My.Api.NuGet.Helpers;

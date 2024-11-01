@@ -9,7 +9,7 @@ public class ValidationTests
     [Fact]
     public void Validator_ValidBooking_ShouldReturnBookingDetails()
     {
-        var booking = "Hilton-101";
+        var booking = "Hilton-Room101";
 
         var result = booking.Validator();
 
